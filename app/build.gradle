@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.dianxinos.testsample"
+        minSdkVersion 10
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+
+        testApplicationId "com.dianxinos.testsample.test"
+        testInstrumentationRunner "com.dianxinos.testsample.instrument.CustomTestRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        appTestRelease.initWith(buildTypes.release)
+        appTestRelease {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFile 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        //resultsDir = "$project.buildDir/foo/results"
+        //reportDir = "$project.buildDir/foo/report"
+    }
+}
+
+//testBuildType 'debug'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Testing-only dependencies
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+}
